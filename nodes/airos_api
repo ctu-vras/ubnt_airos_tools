@@ -81,7 +81,7 @@ class AirosAPI(object):
             self._logged_in = True
             rospy.loginfo("Login successful")
         else:
-            rospy.logerr("Error logging in")
+            rospy.logerr("Error logging in. Reponse content type is %s and content %s..." % (login.headers['content-type'], login.content[:100]))
             raise requests.exceptions.HTTPError()
 
     def _get_rate(self, values, name, key, new_value):
