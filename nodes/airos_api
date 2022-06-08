@@ -127,7 +127,7 @@ class AirosAPI(object):
                 msg.signal = status['wireless']['signal']
                 msg.cpu_load = status['host']['cpuload']
                 self._status_pub.publish(msg)
-            except requests.exceptions.RequestException, e:
+            except requests.exceptions.RequestException as e:
                 rospy.logerr("Network error: " + str(e))
 
     def _publish_interfaces(self, header):
@@ -170,7 +170,7 @@ class AirosAPI(object):
                     msg.interfaces = sorted(msg.interfaces, key=lambda i: i.name)
                     self._interfaces_pub.publish(msg)
 
-            except requests.exceptions.RequestException, e:
+            except requests.exceptions.RequestException as e:
                 rospy.logerr("Network error: " + str(e))
         else:
             self._last_interface_values.clear()
@@ -210,7 +210,7 @@ class AirosAPI(object):
                     msg.stations.append(station_msg)
                 msg.stations = sorted(msg.stations, key=lambda s: s.mac)
                 self._stations_pub.publish(msg)
-            except requests.exceptions.RequestException, e:
+            except requests.exceptions.RequestException as e:
                 rospy.logerr("Network error: " + str(e))
         else:
             self._last_station_values.clear()
@@ -223,7 +223,7 @@ class AirosAPI(object):
                     status = self.request('status.cgi').json()
                     self._frame_id = status['host']['hostname'].encode('ascii')
                     rospy.loginfo("Setting frame_id to " + self._frame_id)
-                except Exception, e:
+                except Exception as e:
                     rospy.logerr("Could not detect hostname of the device, using address")
                     self._frame_id = self._address
 

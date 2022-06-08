@@ -11,7 +11,7 @@ catkin_package(
   CATKIN_DEPENDS message_runtime std_msgs
 )
 
-install(PROGRAMS
+catkin_install_python(PROGRAMS
   nodes/airos_api
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
